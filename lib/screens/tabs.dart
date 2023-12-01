@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:native_features/models/place.dart';
 import 'package:native_features/providers/places_provider.dart';
 import 'package:native_features/screens/add_place.dart';
 import 'package:native_features/screens/place_screen.dart';
@@ -15,17 +16,17 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreen extends ConsumerState<TabsScreen> {
   void _addItem() async {
-    final newPlace = await Navigator.of(context).push<AddPlaceScreen>(
+    final newPlace = await Navigator.of(context).push<Place>(
       MaterialPageRoute(
         builder: (ctx) => const AddPlaceScreen(),
       ),
     );
+    // print("newPlace");
+    // print(newPlace);
 
     if (newPlace == null) {
       return;
     }
-
-    // ref.watch(placesProvider).add(newPlace);
   }
 
   @override

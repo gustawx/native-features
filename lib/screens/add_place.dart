@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:native_features/models/place.dart';
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
@@ -11,6 +12,9 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 }
 
 class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
+  final _formKey = GlobalKey<FormState>();
+  var _enteredTitle = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,21 +22,24 @@ class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
         title: const Text('Add new Place'),
       ),
       body: Form(
+        key: _formKey,
         child: Column(
           children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: "title"),
-                  )
-                ],
-              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                  decoration: const InputDecoration(labelText: "Title"),
+                  onSaved: (value) {
+                    print(value.toString());
+                    _enteredTitle = value!;
+                  }),
             ),
             Center(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  print(_enteredTitle);
+                  Navigator.of(context).pop(Place(title: _enteredTitle));
+                },
                 icon: const Icon(Icons.add),
                 label: const Text('Add place'),
               ),

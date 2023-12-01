@@ -9,11 +9,12 @@ class PlacesNotifier extends StateNotifier<List<Place>> {
         ]);
 
   void addPlace(Place place) {
-    state.add(place);
+    state = [...state, place];
   }
 }
 
 final addPlaceProvider = StateNotifierProvider<PlacesNotifier, List<Place>>(
-    (ref) => PlacesNotifier());
+  (ref) => PlacesNotifier(),
+);
 
 final placesProvider = Provider((ref) => ref.watch(addPlaceProvider));
