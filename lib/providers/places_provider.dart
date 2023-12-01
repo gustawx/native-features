@@ -1,8 +1,12 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:native_features/models/place.dart';
-import 'package:riverpod/riverpod.dart';
 
 class PlacesNotifier extends StateNotifier<List<Place>> {
-  PlacesNotifier() : super([]);
+  PlacesNotifier()
+      : super(const [
+          Place(title: "AAAAAAAAAA"),
+          Place(title: "BBBBBBBBBB"),
+        ]);
 
   void addPlace(Place place) {
     state.add(place);
