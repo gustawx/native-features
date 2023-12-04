@@ -1,52 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:native_features/models/place.dart';
 
-class AddPlaceScreen extends ConsumerStatefulWidget {
+class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
+  State<StatefulWidget> createState() {
     return _AddPlaceScreen();
   }
 }
 
-class _AddPlaceScreen extends ConsumerState<AddPlaceScreen> {
-  final _formKey = GlobalKey<FormState>();
-  var _enteredTitle = '';
+class _AddPlaceScreen extends State<AddPlaceScreen> {
+  final _titleCOntroller = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleCOntroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add new Place'),
+        title: const Text('Add new place'),
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Title"),
-                  onSaved: (value) {
-                    print(value.toString());
-                    _enteredTitle = value!;
-                  }),
-            ),
-            Center(
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  print(_enteredTitle);
-                  Navigator.of(context).pop(Place(title: _enteredTitle));
-                },
-                icon: const Icon(Icons.add),
-                label: const Text('Add place'),
+      body: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              TextField(
+                decoration: const InputDecoration(labelText: 'Title'),
+                controller: _titleCOntroller,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground),
               ),
-            )
-          ],
-        ),
-      ),
+              const SizedBox(
+                height: 16,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {},
+                label: const Text('Add place'),
+                icon: const Icon(Icons.add),
+              )
+            ],
+          )),
     );
   }
 }
