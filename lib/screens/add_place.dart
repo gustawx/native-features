@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:native_features/providers/user_places.dart';
 
-class AddPlaceScreen extends StatefulWidget {
+class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _AddPlaceScreen();
+  ConsumerState<AddPlaceScreen> createState() {
+    return _AddPlaceScreenState();
   }
 }
 
-class _AddPlaceScreen extends State<AddPlaceScreen> {
-  final _titleCOntroller = TextEditingController();
+class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
+  final _titleController = TextEditingController();
+
+  void _savePlace() {
+    final enteredTitle = _titleController.text;
+
+    if (enteredTitle.isEmpty) {
+      return;
+    }
+
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle);
+
+    Navigator.of(context).pop();
+  }
 
   @override
   void dispose() {
-    _titleCOntroller.dispose();
+    _titleController.dispose();
     super.dispose();
   }
 
@@ -22,28 +36,28 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add new place'),
+        title: const Text('Add new Place'),
       ),
       body: SingleChildScrollView(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              TextField(
-                decoration: const InputDecoration(labelText: 'Title'),
-                controller: _titleCOntroller,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground),
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            TextField(
+              decoration: const InputDecoration(labelText: 'Title'),
+              controller: _titleController,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                label: const Text('Add place'),
-                icon: const Icon(Icons.add),
-              )
-            ],
-          )),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _savePlace,
+              icon: const Icon(Icons.add),
+              label: const Text('Add Place'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
