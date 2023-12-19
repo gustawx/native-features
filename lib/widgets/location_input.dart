@@ -19,7 +19,7 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  var apiKey = 'AIzaSyBi_386v-iP6KCjJJtH_dzMVuRyfmyMuyo';
+  var apiKey = 'KEY_HERE';
   PlaceLocation? _pickedLocation;
   bool _isGettingLocation = false;
 

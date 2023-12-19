@@ -6,7 +6,7 @@ class PlaceDetailScreen extends StatelessWidget {
   const PlaceDetailScreen({super.key, required this.place});
 
   String get locationImage {
-    var apiKey = 'AIzaSyBi_386v-iP6KCjJJtH_dzMVuRyfmyMuyo';
+    var apiKey = 'KEY_HERE';
     var lat = place.location.latitude;
     var lng = place.location.longitude;
     return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7$lat,$lng&key=$apiKey';
